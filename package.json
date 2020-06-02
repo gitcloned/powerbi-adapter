@@ -47,7 +47,7 @@
   "deprecated": false,
   "description": "Power BI Rest API Adapter",
   "license": "MIT",
-  "main": "index.js",
+  "main": "powerbi.js",
   "name": "powerbi-adapter",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
