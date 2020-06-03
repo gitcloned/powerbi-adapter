@@ -182,7 +182,7 @@ class PowerBI {
                     'url': url,
                     'headers': {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        'Authorization': 'Bearer ' + token.accessToken
+                        'Authorization': 'Bearer ' + token.token()
                     }
                 };
 
@@ -190,7 +190,16 @@ class PowerBI {
             })
     }
 
+    token() {
+
+        return this
+            .session
+            .login()
+    }
+
     embedToken(params) {
+
+        params = params || {}
 
         let group = params.group
         let report = params.report
@@ -212,13 +221,10 @@ class PowerBI {
         return this
             .session
             .login()
-            .then(accessToken => {
+            .then(token => {
 
                 return tokenBuilder
-                    .token(accessToken)
-                    .then(embedToken => {
-                        return embedToken.token()
-                    })
+                    .token(token, params)
             })
     }
 }

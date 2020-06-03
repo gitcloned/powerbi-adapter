@@ -50,7 +50,12 @@
   "main": "powerbi.js",
   "name": "powerbi-adapter",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
-  "version": "1.0.0"
+  "version": "1.0.1",
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "mocha": "^7.2.0",
+    "ssl-root-cas": "^1.3.1"
+  }
 }
