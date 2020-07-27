@@ -26,11 +26,15 @@ let options = {}
 let powerBI = new PowerBI(credentials, options)
 
 // query available groups in Power BI
-powerBI.data(null, null, {
-    "type": "group"
-}, (err, results) => {
+powerBI.groups()
+    .then (groups => {
 
-   // got reports here
-})
+        console.log(groups)
+    })
+    .catch(err => {
+
+        // handle err
+        console.error(err)
+    })
 
 ```
