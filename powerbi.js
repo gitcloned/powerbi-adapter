@@ -204,10 +204,11 @@ class PowerBI {
         let group = params.group
         let report = params.report
         let dataset = params.dataset
+        let accessLevel = params.accessLevel
 
         let tokenBuilder = this
             .embedTokenManager
-            .tokenBuilder();
+            .tokenBuilder(accessLevel);
 
         if (group)
             tokenBuilder.forGroups(group)
@@ -228,4 +229,6 @@ class PowerBI {
             })
     }
 }
+
 module.exports = PowerBI
+module.exports.EmbedToken = require("./lib/EmbedToken")

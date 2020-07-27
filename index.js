@@ -246,4 +246,6 @@ class PowerBI {
             .catch(callback)
     }
 }
+
 module.exports = PowerBI
+module.exports.EmbedToken = require("./lib/EmbedToken")
