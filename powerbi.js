@@ -226,6 +226,26 @@ class PowerBI {
 
                 return tokenBuilder
                     .token(token, params)
+                    .then(embedToken => { return embedToken })
+                    .catch(({ err, accessTokenExpired }) => {
+
+                        if (accessTokenExpired) {
+
+                            console.log(' access token has expired, re-logging in')
+
+                            return this
+                                .session
+                                .clear() // clear the session and re-login
+                                .login()
+                                .then(token => {
+
+                                    return tokenBuilder
+                                        .token(token, params)
+                                })
+                        }
+
+                        return Promise.reject(err)
+                    })
             })
     }
 }
