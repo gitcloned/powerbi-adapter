@@ -224,28 +224,35 @@ class PowerBI {
             .login()
             .then(token => {
 
-                return tokenBuilder
-                    .token(token, params)
-                    .then(embedToken => { return embedToken })
-                    .catch(({ err, accessTokenExpired }) => {
+                return new Promise((resolve, reject) => {
 
-                        if (accessTokenExpired) {
+                    tokenBuilder
+                        .token(token, params)
+                        .then(embedToken => { resolve(embedToken) })
+                        .catch(({ error, accessTokenExpired }) => {
 
-                            console.log(' access token has expired, re-logging in')
+                            if (accessTokenExpired) {
 
-                            return this
-                                .session
-                                .clear() // clear the session and re-login
-                                .login()
-                                .then(token => {
+                                console.log(' access token has expired, re-logging in')
 
-                                    return tokenBuilder
-                                        .token(token, params)
-                                })
-                        }
+                                return this
+                                    .session
+                                    .clear() // clear the session and re-login
+                                    .login()
+                                    .then(token => {
 
-                        return Promise.reject(err)
-                    })
+                                        tokenBuilder
+                                            .token(token, params)
+                                            .then(resolve)
+                                            .catch(({ error }) => {
+                                                reject(error)
+                                            })
+                                    })
+                            }
+
+                            return reject(error)
+                        })
+                })
             })
     }
 }

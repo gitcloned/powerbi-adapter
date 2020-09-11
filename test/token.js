@@ -46,7 +46,7 @@ describe('PowerBI Token', function () {
 
         it("should return expired after expiry", function () {
 
-            this.tokenObject.expiresIn = -1
+            this.tokenObject.expiry = new Date("01/01/2000").valueOf() / 1000
             assert(this.tokenObject.isExpired() == true)
         })
 
